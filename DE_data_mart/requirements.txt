@@ -1,0 +1,10 @@
+pandas
+psycopg2
+configparser
+sqlalchemy
+pytest
+black
+flake8
+mypy
+isort
+pre-commit

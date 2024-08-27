@@ -1,0 +1,52 @@
+version: "3"
+
+
+services:
+  etl:
+    container_name: etl
+    build:
+      context: ./
+    volumes:
+      - ./:/app
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      TABLE_NAME: ${TABLE_NAME}
+      FILE_PATH: ${FILE_PATH}
+
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    environment: 
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    restart: always
+    ports: 
+      - "5432:5432"
+    volumes: 
+      - postgres-volume:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d
+
+  metabase:
+    image: metabase/metabase:latest
+    container_name: metabase
+    hostname: metabase
+    volumes:
+    - urandom:/dev/random:ro
+    ports:
+      - 3000:3000
+    restart: always
+
+
+volumes:
+  postgres-volume:
+  urandom: 
+
+
+
+
+
