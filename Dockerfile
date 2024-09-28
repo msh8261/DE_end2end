@@ -2,6 +2,8 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
-RUN pip install pytest
+COPY requirements.txt .
 
-CMD ["pytest", "--version"]
+RUN pip install -r requirements.txt
+
+# CMD ["python", "your_script.py"]
