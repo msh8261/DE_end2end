@@ -14,7 +14,7 @@ pytest:
 	docker run --rm my-image pytest -p no:warnings -v
 
 
-ci: isort format type pytest
+ci: format type pytest
 
 run_pytest:
 	pytest -p no:warnings -v
